@@ -22,5 +22,7 @@
             double promedio = (calidadProducto + atencionCliente + relacionCalidadPrecio) / 3.0;
             Console.WriteLine($"Gracias por completar la encuesta, {nombre}. Su puntuación promedio es: {promedio:F2}");
         }
+
+        Console.ReadLine();
     }
 }

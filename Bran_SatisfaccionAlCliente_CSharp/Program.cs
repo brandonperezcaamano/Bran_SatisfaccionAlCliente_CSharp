@@ -5,6 +5,7 @@
         Console.WriteLine("Bienvenido a la encuesta de satisfacción al cliente.");
         Console.Write("Por favor, ingrese su nombre: ");
         string nombre = Console.ReadLine();
+        Console.Write("Por favor, ingrese su edad: ");
         int edad = Convert.ToInt32(Console.ReadLine());
         if (edad < 18)
         {
@@ -23,6 +24,7 @@
             Console.WriteLine($"Gracias por completar la encuesta, {nombre}. Su puntuación promedio es: {promedio:F2}");
         }
 
-        Console.ReadLine();
+        while (edad == 0 || edad >= 120)
+        { Console.WriteLine("Edad No valida"); } 
     }
 }

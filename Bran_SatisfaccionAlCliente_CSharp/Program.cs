@@ -8,6 +8,7 @@
         LimpiarPantalla();
         Console.Write("Por favor, ingrese su edad: ");
         int edad = Convert.ToInt32(Console.ReadLine());
+        double promedio = 0;
         if (edad < 18)
         {
             Console.WriteLine("Lo siento, esta encuesta es solo para mayores de 18 años.");
@@ -20,6 +21,7 @@
             Console.WriteLine("3. Entrega a domicilio");
             int servicio = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine($"Usted eligió el servicio: {(servicios)servicio}");
+           
             if (servicio < 1 || servicio > 3)
             {
                 Console.WriteLine("Servicio no válido. Por favor, elija un número del 1 al 3.");
@@ -37,7 +39,7 @@
                 string comentarios = Console.ReadLine();
                 Console.WriteLine("Deseas enviar su opinion? [si/no]");
                 string respuesta = Console.ReadLine();
-                double promedio = (comprasLinea + atencionCliente + entregasDomicilio) / 3.0;
+                promedio = (comprasLinea + atencionCliente + entregasDomicilio) / 3.0;
                 if (respuesta.ToLower() != "si")
                 {
                     Console.WriteLine("Gracias por su tiempo. Su opinión no ha sido enviada.");
@@ -61,37 +63,39 @@
 
             }
         }
-        static void LimpiarPantalla()
+
+    }
+
+    static void LimpiarPantalla()
+    {
+        Console.ReadKey();
+        Console.Beep();
+        Console.Clear();
+    }
+
+    static void Empleados(string nombre)
+    {
+        string nombredeempleado = Console.ReadLine();
+        Console.WriteLine($"Bienvenido {nombredeempleado}");
+        Console.WriteLine("Por favor ingrese su area de trabajo: ");
+        string areadetrabajo = Console.ReadLine();
+        switch (areadetrabajo)
         {
-            Console.ReadKey();
-            Console.Beep();
-            Console.Clear();
+            case "Atencion al cliente":
+                Console.WriteLine("Gracias por su trabajo en Atencion al cliente");
+                break;
+            case "Repartidor":
+                Console.WriteLine("Gracias por su trabajo como Repartidor");
+                break;
+            case "Soporte tecnico":
+                Console.WriteLine("Gracias por su trabajo en Soporte tecnico");
+                break;
+            default:
+                Console.WriteLine("Area de trabajo no reconocida");
+                break;
+
         }
 
-        static void Empleados(string nombre)
-        {
-            string nombredeempleado = Console.ReadLine();
-            Console.WriteLine($"Bienvenido {nombredeempleado}");
-            Console.WriteLine("Por favor ingrese su area de trabajo: ");
-            string areadetrabajo = Console.ReadLine();
-            switch (areadetrabajo)
-            {
-                case "Atencion al cliente":
-                    Console.WriteLine("Gracias por su trabajo en Atencion al cliente");
-                    break;
-                case "Repartidor":
-                    Console.WriteLine("Gracias por su trabajo como Repartidor");
-                    break;
-                case "Soporte tecnico":
-                    Console.WriteLine("Gracias por su trabajo en Soporte tecnico");
-                    break;
-                default:
-                    Console.WriteLine("Area de trabajo no reconocida");
-                    break;
-
-            }
-
-        }
     }
     enum servicios
     {

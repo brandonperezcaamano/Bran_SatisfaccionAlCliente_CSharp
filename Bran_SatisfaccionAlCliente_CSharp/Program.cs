@@ -10,17 +10,8 @@ internal class Program
         //aqui decidi poner mis ejecuciones en el main, tomando en cuenta sus observaciones
         Console.WriteLine("Bienvenido a la encuesta de satisfacción al cliente.");
 
-        string nombre = pedirnombre();
+        string nombre = Pedirnombre();
         int edad = PedirEdad();
-
-
-        if (edad < 18)
-        {
-            Console.WriteLine("Lo siento, debes ser mayor de edad para participar en la encuesta.");
-            LimpiarPantalla();
-            return;
-        }
-
         servicios servicioSeleccionado = PedirServicio();
         double promedio = CalificarServicio();
 
@@ -49,37 +40,48 @@ internal class Program
     }
     //Aqui sustitui los if y else por ciclos while para validar las entradas
     //tambien estudiando un poco el recurso que me envio sobre las excepciones lo puse en practica.
-    static string pedirnombre()
+    public static string Pedirnombre()
     {
+        //lee la entrada del usuario
         string nombre;
-        do
+        Console.Write("Por Favor Ingrese su nombre: ");
+        nombre = Console.ReadLine();
+
+        //aqui tuve que volver con el if, porque con el bucle while permitia los espacios en blanco infinitamente
+        //el objetivo es que el usuario ingrese un nombre valido, no solo espacios o un caracter
+        if (string.IsNullOrWhiteSpace(nombre))
         {
-            Console.Write("Ingrese su nombre: ");
-            nombre = Console.ReadLine();
-
-            try
-            {
-                //aqui he tenido que investigar un poco mas sobre las excepciones y encontre que ArgumentException es la mas adecuada para este caso
-                string.IsNullOrWhiteSpace(nombre);
-            }
-            catch (ArgumentException empty)
-            {
-                Console.WriteLine("El nombre no puede estar vacío. Por favor, ingrese un nombre válido.");
-            }
-
+            Console.WriteLine("Error: el nombre no puede estar vacío ni contener solo espacios.");
+            LimpiarPantalla();
         }
-        while (string.IsNullOrWhiteSpace(nombre));
-
-        return nombre;
+        else if (nombre.Trim().Length == 1)
+        {
+            Console.WriteLine("Error: el nombre debe tener más de un carácter.");
+            LimpiarPantalla();
+        }
+        else
+        {
+           return nombre;
+        }
+        return Pedirnombre();
     }
-
-    static int PedirEdad()
+        static int PedirEdad()
     {
         int edad;
         Console.Write("Ingrese su edad: ");
         while (!int.TryParse(Console.ReadLine(), out edad) || edad <= 0 || edad >= 120)
         {
-            Console.Write("Edad no válida. Intente nuevamente: ");
+            Console.Write("Edad no válida. Edad debe ser mayor a 0 y menor a 120");
+            LimpiarPantalla();
+
+            Console.Write("Ingrese su edad nuevamente: ");
+            edad = int.Parse(Console.ReadLine());
+            if (edad < 18)
+            {
+                Console.WriteLine("Lo siento, debes ser mayor de edad para participar en la encuesta.");
+                LimpiarPantalla();
+            }
+
         }
         return edad;
     }
@@ -134,6 +136,7 @@ internal class Program
         return valor;
     }
 
+    //este es mi hermoso metodo mata aplicaciones / mata usuario
     static void LimpiarPantalla()
     {
         Console.ReadKey();
